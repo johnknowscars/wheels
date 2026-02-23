@@ -1,0 +1,139 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Paul – The Car Doctor</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter,Arial,sans-serif;background:#f4f6f8;color:#222}
+header{background:linear-gradient(135deg,#003a5d,#005b88);color:white;padding:50px 20px;text-align:center}
+header h1{font-size:3em;margin:0}
+header p{font-size:1.3em;opacity:.9}
+nav{background:#02293f;padding:12px;text-align:center}
+nav a{color:white;margin:0 15px;text-decoration:none;font-weight:600}
+nav a:hover{text-decoration:underline}
+.container{max-width:1150px;margin:auto;padding:30px 20px}
+.section{background:white;padding:30px;margin-bottom:30px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+h2{color:#003a5d}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card{background:#f7fbff;padding:20px;border-radius:8px}
+.feed a{display:block;padding:10px 0;color:#005b88;text-decoration:none;border-bottom:1px solid #ddd}
+.feed a:hover{text-decoration:underline}
+.about-grid{display:grid;grid-template-columns:220px 1fr;gap:25px;align-items:center}
+.about-grid img{width:100%;border-radius:12px}
+footer{background:#02293f;color:white;text-align:center;padding:25px}
+iframe{border-radius:12px;border:none}
+@media(max-width:768px){
+.about-grid{grid-template-columns:1fr}
+header h1{font-size:2.3em}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>John Paul</h1>
+<p>The Car Doctor • Automotive Expert • Columnist • Podcast Host</p>
+</header>
+
+<nav>
+<a href="#about">About</a>
+<a href="#columns">Columns</a>
+<a href="#podcast">Podcast</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<div class="container">
+
+<div class="section" id="about">
+<h2>About John Paul</h2>
+
+<div class="about-grid">
+<img src="car-doctor.png" alt="John Paul The Car Doctor">
+
+<div>
+<p>
+With more than four decades of automotive experience, John Paul — known nationwide as 
+<strong>The Car Doctor</strong> — is a Master ASE-certified technician, syndicated newspaper columnist, 
+radio host, and trusted voice in automotive repair, safety, and technology.
+</p>
+<p>
+John writes weekly columns for major publications, hosts a popular radio program and podcast,
+and helps millions of drivers make smart, informed vehicle decisions.
+</p>
+</div>
+</div>
+</div>
+
+<div class="section" id="columns">
+<h2>Latest Columns</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Boston.com</h3>
+<div id="bostonFeed" class="feed">Loading latest articles...</div>
+</div>
+
+<div class="card">
+<h3>Providence Journal</h3>
+<div id="projoFeed" class="feed">Loading latest articles...</div>
+</div>
+
+<div class="card">
+<h3>Newsday</h3>
+<div id="newsdayFeed" class="feed">Loading latest articles...</div>
+</div>
+
+</div>
+</div>
+
+<div class="section" id="podcast">
+<h2>The Car Doctor Podcast</h2>
+<p>Expert car advice, listener questions, interviews, and real-world repair insight.</p>
+
+<iframe 
+src="https://open.spotify.com/embed/show/7LYs4hGJDYY2TlV7nS31bk?utm_source=generator"
+width="100%" height="352"
+allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+</iframe>
+
+</div>
+
+<div class="section" id="contact">
+<h2>Contact</h2>
+<p><strong>Email:</strong> jpaul@aaanortheast.com</p>
+<p>Available for interviews, speaking engagements, consulting, and automotive media appearances.</p>
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 John Paul – The Car Doctor</p>
+</footer>
+
+<script>
+async function loadFeed(url, elementId, limit=5){
+  const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
+  try{
+    const res = await fetch(api);
+    const data = await res.json();
+    let html="";
+    data.items.slice(0,limit).forEach(item=>{
+      html += `<a href="${item.link}" target="_blank">${item.title}</a>`;
+    });
+    document.getElementById(elementId).innerHTML = html;
+  }catch(e){
+    document.getElementById(elementId).innerHTML="Feed unavailable.";
+  }
+}
+
+loadFeed("https://www.boston.com/tag/car-doctor/feed/","bostonFeed");
+loadFeed("https://www.projo.com/author/john-paul/feed/","projoFeed");
+loadFeed("https://www.newsday.com/columnists/john-paul/feed","newsdayFeed");
+</script>
+
+</body>
+</html>
